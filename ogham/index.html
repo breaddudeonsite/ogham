@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark light">
+<title>Hand ogham reference</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#171c18">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Hand ogham">
+<style>
+:root{
+  --bg:#f3f1ea;--panel:#fbfaf6;--line:#c9c5b6;--text:#1f241e;--dim:#5c6258;--faint:#8b9086;--sel:#e2e8d8;
+  --c0:#6a60c9;--c1:#168060;--c2:#c4532a;--c3:#a0650f;
+}
+@media (prefers-color-scheme: dark){
+  :root{--bg:#171c18;--panel:#1f2621;--line:#3a443d;--text:#e6e8df;--dim:#a2a99d;--faint:#6f776c;--sel:#2b3a2d;
+  --c0:#9b94ee;--c1:#4fc79c;--c2:#f08a64;--c3:#e0a24a}
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding:max(16px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) max(24px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left))}
+main{max-width:520px;margin:0 auto}
+h1{font:500 24px/1.2 Georgia,"Iowan Old Style","Palatino Linotype",serif;margin:4px 0 12px}
+h2{font:500 14px/1.3 system-ui,sans-serif;color:var(--dim);margin:20px 0 6px}
+svg{display:block;width:100%;height:auto}
+.finger{fill:var(--panel);stroke:var(--line);stroke-width:1}
+.lbl{fill:var(--dim);font-size:12px}
+.hit{fill:transparent;cursor:pointer}
+.hit:focus-visible{stroke:var(--text);stroke-width:2;outline:none}
+.card{border:1px solid var(--line);background:var(--panel);border-radius:10px;padding:10px 14px;min-height:78px}
+.card .big{font:500 20px/1.3 Georgia,"Iowan Old Style",serif}
+.card .mean{margin-top:2px}
+.card .where{font-size:13px;color:var(--dim);margin-top:4px}
+.empty{color:var(--dim);font-size:15px}
+.bar{display:flex;justify-content:space-between;align-items:center}
+.bar span{font-size:14px;color:var(--dim)}
+button{font:inherit;font-size:14px;padding:6px 12px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--text);cursor:pointer}
+button:focus-visible,select:focus-visible,.row:focus-visible{outline:2px solid var(--text);outline-offset:2px}
+.seq{display:flex;flex-direction:column;gap:6px;min-height:24px}
+.seq div{font-size:15px}
+.seq .n{display:inline-block;min-width:24px;color:var(--dim)}
+.none{color:var(--faint);font-size:14px}
+.gh{font-size:13px;font-weight:600;margin:14px 0 4px}
+.row{cursor:pointer;padding:6px 10px;border-left:4px solid var(--line);background:var(--panel)}
+.row+.row{margin-top:4px}
+.row:hover{background:var(--sel)}
+.row b{font-weight:600}
+.row small{color:var(--dim);margin-left:4px}
+.row div{font-size:14px;color:var(--dim)}
+.set{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.set label{font-size:13px;color:var(--dim)}
+select{display:block;width:100%;margin-top:2px;padding:7px;font:inherit;font-size:14px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--text)}
+@media (prefers-reduced-motion: no-preference){.row{transition:background .15s}}
+</style>
+</head>
+<body>
+<main>
+<h1>Hand ogham reference</h1>
+<svg viewBox="0 0 380 290" role="group" aria-label="Left hand, palm down. Thumb on the right, pinky on the left. Each finger has four touch points."><g id="hand"></g></svg>
+<div class="card" id="card" aria-live="polite"></div>
+<h2 class="bar"><span>Your reading, in order</span><span><button id="undo" type="button">Undo</button> <button id="clear" type="button">Clear</button></span></h2>
+<div class="seq" id="seq"></div>
+<h2>All twenty (tap to add)</h2>
+<div id="list"></div>
+<h2>Your method settings</h2>
+<div class="set" id="set"></div>
+</main>
+<script>
+var G=[
+{n:'Beithe',cv:'--c0',L:['B','L','F','S','N'],O:['Beith','Luis','Fern','Sail','Nion'],T:['Birch','Rowan','Alder','Willow','Ash'],M:['New beginnings, renewal, clearing the old','Protection, insight, guarding against deception','Guidance, shielding, foundations, courage to lead','Intuition, cycles, emotional tides, flowing with change','Connection, choices, threads between worlds']},
+{n:'hÚath',cv:'--c1',L:['H','D','T','C','Q'],O:['hÚath','Dair','Tinne','Coll','Ceirt'],T:['Hawthorn','Oak','Holly','Hazel','Apple'],M:['Obstacles, patience, restraint, cleansing before moving','Strength, steadfastness, doorways, sovereignty','Balanced challenge, justice, readiness to fight','Wisdom, inspiration, hidden knowledge, divination','Choice, beauty, otherworld allure, love and consequence']},
+{n:'Muine',cv:'--c2',L:['M','G','NG','Z','R'],O:['Muin','Gort','nGéadal','Straif','Ruis'],T:['Vine','Ivy','Reed','Blackthorn','Elder'],M:['Harvest, release, truth-telling, gifts of spirit','Tenacity, spiral journeys, growth, binding ties','Direct action, healing, writing, clear purpose','Hardship, fate, cutting away what no longer serves','Endings, transformation, acceptance, rebirth through loss']},
+{n:'Ailm',cv:'--c3',L:['A','O','U','E','I'],O:['Ailm','Onn','Úr','Eadhadh','Iodhadh'],T:['Fir','Gorse','Heather','Aspen','Yew'],M:['Clarity, far-sight, perspective, endurance','Hope, gathering, golden promise, resilience','Passion, healing, community, wild places','Courage, listening, enduring fear, whispers','Death and rebirth, ancestors, memory, longevity']}
+];
+var Z=['left','right','top','tip'];
+var ZL={left:'left side',right:'right side',top:'across the top',tip:'fingertip'};
+var FN=['thumb','index','middle','ring','pinky'];
+var X=[262,208,154,100,46],Y=[120,58,40,56,88];
+var zg={left:0,right:1,top:2,tip:3},thumb=true,seq=[],sel=null;
+try{var s=JSON.parse(localStorage.getItem('ogham-settings')||'null');if(s&&s.zg&&typeof s.thumb==='boolean'){zg=s.zg;thumb=s.thumb}}catch(e){}
+function save(){try{localStorage.setItem('ogham-settings',JSON.stringify({zg:zg,thumb:thumb}))}catch(e){}}
+function $(i){return document.getElementById(i)}
+function col(g){return 'var('+G[g].cv+')'}
+function num(k){return thumb?k+1:5-k}
+function info(k,z){var g=zg[z],f=num(k)-1;return{g:g,L:G[g].L[f],O:G[g].O[f],T:G[g].T[f],M:G[g].M[f]}}
+function zoneOf(g){return Z.filter(function(q){return zg[q]===g})[0]}
+function draw(){
+  var s='';
+  for(var k=0;k<5;k++){
+    s+='<rect class="finger" x="'+X[k]+'" y="'+Y[k]+'" width="40" height="'+(190-Y[k])+'" rx="18"/>';
+    s+='<text class="lbl" x="'+(X[k]+20)+'" y="'+(Y[k]-10)+'" text-anchor="middle" dominant-baseline="central">'+num(k)+'</text>';
+  }
+  s+='<rect class="finger" x="40" y="180" width="262" height="86" rx="16"/>';
+  s+='<text class="lbl" x="171" y="236" text-anchor="middle" dominant-baseline="central">left hand, palm down</text>';
+  for(var k=0;k<5;k++)for(var j=0;j<4;j++){
+    var z=Z[j],on=sel&&sel.k===k&&sel.z===z,c=on?col(zg[z]):'var(--faint)',x0=X[k],ym=Y[k]+48,o=on?1:0.55,hx,hy,e;
+    if(z==='left'){hx=x0;hy=ym;e='<circle cx="'+hx+'" cy="'+hy+'" r="'+(on?9:5)+'" fill="'+c+'" opacity="'+o+'"/>'}
+    else if(z==='right'){hx=x0+40;hy=ym;e='<circle cx="'+hx+'" cy="'+hy+'" r="'+(on?9:5)+'" fill="'+c+'" opacity="'+o+'"/>'}
+    else if(z==='tip'){hx=x0+20;hy=Y[k]+9;e='<circle cx="'+hx+'" cy="'+hy+'" r="'+(on?9:5)+'" fill="'+c+'" opacity="'+o+'"/>'}
+    else{hx=x0+20;hy=ym;e='<rect x="'+(x0+4)+'" y="'+(ym-(on?6:3))+'" width="32" height="'+(on?12:6)+'" rx="4" fill="'+c+'" opacity="'+o+'"/>'}
+    var i=info(k,z);
+    s+=e+'<circle class="hit" cx="'+hx+'" cy="'+hy+'" r="13" tabindex="0" role="button" aria-label="'+FN[k]+', '+ZL[z]+': '+i.L+', '+i.T+'" data-k="'+k+'" data-z="'+z+'"/>';
+  }
+  $('hand').innerHTML=s;
+  var cd=$('card');
+  if(!sel){cd.innerHTML='<div class="empty">Tap a spot on the hand, or a tree below.</div>'}
+  else{var i=info(sel.k,sel.z);cd.innerHTML='<div class="big" style="color:'+col(i.g)+'">'+i.L+' <span style="color:var(--text)">'+i.T+'</span> <span style="font-size:14px;color:var(--dim)">'+i.O+'</span></div><div class="mean">'+i.M+'</div><div class="where">'+FN[sel.k]+' '+num(sel.k)+', '+ZL[sel.z]+' ('+G[i.g].n+')</div>'}
+  var q='';
+  seq.forEach(function(p,n){var i=info(p.k,p.z);q+='<div><span class="n">'+(n+1)+'.</span><b style="color:'+col(i.g)+'">'+i.L+'</b> '+i.T+': '+i.M+'</div>'});
+  $('seq').innerHTML=q||'<div class="none">Nothing yet</div>';
+}
+function add(k,z){sel={k:k,z:z};seq.push(sel);draw()}
+function list(){
+  var h='';
+  G.forEach(function(g,gi){
+    h+='<div class="gh" style="color:'+col(gi)+'">'+g.n+', '+ZL[zoneOf(gi)]+'</div>';
+    g.L.forEach(function(l,f){
+      h+='<div class="row" role="button" tabindex="0" data-g="'+gi+'" data-f="'+f+'" style="border-left-color:'+col(gi)+'"><b>'+l+' '+g.T[f]+'</b><small>'+g.O[f]+'</small><div>'+g.M[f]+'</div></div>';
+    });
+  });
+  $('list').innerHTML=h;
+}
+function settings(){
+  var h='';
+  Z.forEach(function(z){
+    h+='<label>'+ZL[z]+'<select data-z="'+z+'">'+G.map(function(g,i){return '<option value="'+i+'"'+(zg[z]===i?' selected':'')+'>'+g.n+'</option>'}).join('')+'</select></label>';
+  });
+  h+='<label>count from<select id="from"><option value="t"'+(thumb?' selected':'')+'>thumb</option><option value="p"'+(thumb?'':' selected')+'>pinky</option></select></label>';
+  $('set').innerHTML=h;
+}
+function reset(){seq=[];sel=null;save();settings();list();draw()}
+document.addEventListener('click',function(ev){
+  var t=ev.target;
+  if(t.classList&&t.classList.contains('hit')){add(+t.dataset.k,t.dataset.z);return}
+  var r=t.closest&&t.closest('.row');
+  if(r){var g=+r.dataset.g,f=+r.dataset.f;add(thumb?f:4-f,zoneOf(g))}
+});
+document.addEventListener('keydown',function(ev){
+  if(ev.key!=='Enter'&&ev.key!==' ')return;
+  var t=ev.target;
+  if(t.classList&&(t.classList.contains('hit')||t.classList.contains('row'))){ev.preventDefault();t.dispatchEvent(new MouseEvent('click',{bubbles:true}))}
+});
+document.addEventListener('change',function(ev){
+  var t=ev.target;
+  if(t.id==='from'){thumb=t.value==='t';reset();return}
+  if(t.dataset&&t.dataset.z){
+    var z=t.dataset.z,v=+t.value,old=zg[z],o=Z.filter(function(q){return zg[q]===v})[0];
+    if(o)zg[o]=old;zg[z]=v;reset();
+  }
+});
+$('undo').onclick=function(){seq.pop();sel=seq.length?seq[seq.length-1]:null;draw()};
+$('clear').onclick=function(){seq=[];sel=null;draw()};
+settings();list();draw();
+if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})})}
+</script>
+</body>
+</html>
