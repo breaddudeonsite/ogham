@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="dark light">
 <title>Hand ogham reference</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#171c18">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Hand ogham">
 <style>
 :root{
   --bg:#f3f1ea;--panel:#fbfaf6;--line:#c9c5b6;--text:#1f241e;--dim:#5c6258;--faint:#8b9086;--sel:#e2e8d8;
@@ -149,6 +156,7 @@ document.addEventListener('change',function(ev){
 $('undo').onclick=function(){seq.pop();sel=seq.length?seq[seq.length-1]:null;draw()};
 $('clear').onclick=function(){seq=[];sel=null;draw()};
 settings();list();draw();
+if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})})}
 </script>
 </body>
 </html>
